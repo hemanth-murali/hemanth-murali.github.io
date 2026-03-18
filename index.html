@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hemanth Murali — Robotics & AI Engineer</title>
+<meta name="description" content="Hemanth Murali — MS Robotics @ University of Michigan. Perception, manipulation, autonomous systems, and deep learning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ============================================
+   DESIGN SYSTEM — "SIGNAL" 
+   Cybernetic Dark / Editorial Warm Light
+   ============================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{--transition-theme:.55s cubic-bezier(.4,0,.2,1)}
+
+/* ===== DARK THEME ===== */
+[data-theme="dark"]{
+  --bg:#0b0b11;--bg2:#0f0f18;--bg3:#161622;--bg4:#1e1e30;
+  --surface:#12121e;--surface2:#1a1a2b;--surface-border:rgba(255,255,255,.06);
+  --text:#e8e4dc;--text2:#9994a8;--text3:#5e5970;
+  --accent:#00f0ff;--accent-rgb:0,240,255;--accent2:#ff4d6a;--accent2-rgb:255,77,106;
+  --accent3:#a78bfa;--accent4:#34d399;
+  --gradient:linear-gradient(135deg,#00f0ff,#a78bfa);
+  --gradient2:linear-gradient(135deg,#ff4d6a,#fbbf24);
+  --card-bg:rgba(18,18,30,.7);--card-hover:rgba(26,26,43,.9);
+  --glow:0 0 60px rgba(0,240,255,.08);
+  --noise-opacity:.035;--grid-opacity:.04;
+  --shadow-card:0 4px 30px rgba(0,0,0,.5);
+  --cursor-blend:difference;
+}
+/* ===== LIGHT THEME ===== */
+[data-theme="light"]{
+  --bg:#f5f0e8;--bg2:#ece6da;--bg3:#e2dace;--bg4:#d5cdc0;
+  --surface:#fff;--surface2:#f9f5ed;--surface-border:rgba(0,0,0,.08);
+  --text:#1a1a2e;--text2:#5a556b;--text3:#8e8a9a;
+  --accent:#3d2c8d;--accent-rgb:61,44,141;--accent2:#e8751a;--accent2-rgb:232,117,26;
+  --accent3:#6d28d9;--accent4:#059669;
+  --gradient:linear-gradient(135deg,#3d2c8d,#6d28d9);
+  --gradient2:linear-gradient(135deg,#e8751a,#f59e0b);
+  --card-bg:rgba(255,255,255,.85);--card-hover:rgba(255,255,255,1);
+  --glow:0 0 60px rgba(61,44,141,.06);
+  --noise-opacity:.02;--grid-opacity:.06;
+  --shadow-card:0 4px 30px rgba(0,0,0,.08);
+  --cursor-blend:normal;
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+  line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  transition:background var(--transition-theme),color var(--transition-theme);
+  cursor:none;
+}
+::selection{background:var(--accent);color:var(--bg)}
+
+/* ===== NOISE OVERLAY ===== */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:var(--noise-opacity);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:180px;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor{position:fixed;width:20px;height:20px;border:2px solid var(--accent);border-radius:50%;pointer-events:none;z-index:99998;transition:width .3s,height .3s,border-color .3s,transform .3s,background .3s;transform:translate(-50%,-50%);mix-blend-mode:var(--cursor-blend)}
+.cursor.hover{width:60px;height:60px;background:rgba(var(--accent-rgb),.08);border-color:var(--accent2)}
+.cursor.click{transform:translate(-50%,-50%) scale(.8)}
+.cursor-dot{position:fixed;width:5px;height:5px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:background .3s}
+
+/* ===== SCROLL PROGRESS ===== */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:var(--gradient);z-index:10001;transition:width .1s linear;border-radius:0 2px 2px 0}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:0 clamp(1rem,4vw,3rem);transition:all .4s}
+.nav.scrolled{background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(20px) saturate(1.5);border-bottom:1px solid var(--surface-border)}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-1px;color:var(--text);text-decoration:none;position:relative}
+.nav-logo span{color:var(--accent)}
+.nav-center{display:flex;gap:.25rem;list-style:none;background:var(--surface);border:1px solid var(--surface-border);border-radius:100px;padding:4px}
+.nav-center a{color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:500;padding:.45rem 1rem;border-radius:100px;transition:all .3s;display:block}
+.nav-center a:hover,.nav-center a.active{color:var(--text);background:var(--bg3)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.theme-toggle{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--surface-border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;color:var(--text);font-size:1rem}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent);transform:rotate(180deg)}
+[data-theme="dark"] .theme-toggle .fa-sun{display:inline}
+[data-theme="dark"] .theme-toggle .fa-moon{display:none}
+[data-theme="light"] .theme-toggle .fa-sun{display:none}
+[data-theme="light"] .theme-toggle .fa-moon{display:inline}
+.nav-cta{padding:.55rem 1.4rem;border-radius:100px;background:var(--accent);color:var(--bg);text-decoration:none;font-size:.82rem;font-weight:700;letter-spacing:.3px;transition:all .3s;font-family:'Syne',sans-serif}
+.nav-cta:hover{box-shadow:0 0 25px rgba(var(--accent-rgb),.35);transform:translateY(-2px)}
+.hamburger{display:none;background:none;border:1.5px solid var(--surface-border);border-radius:12px;width:44px;height:44px;cursor:pointer;position:relative;transition:all .3s}
+.hamburger span{position:absolute;left:50%;width:18px;height:1.5px;background:var(--text);transform:translateX(-50%);transition:all .3s}
+.hamburger span:nth-child(1){top:15px}
+.hamburger span:nth-child(2){top:21px}
+.hamburger span:nth-child(3){top:27px}
+.hamburger.open span:nth-child(1){top:21px;transform:translateX(-50%) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){top:21px;transform:translateX(-50%) rotate(-45deg)}
+.mobile-overlay{position:fixed;inset:0;background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(30px);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;opacity:0;pointer-events:none;transition:opacity .4s}
+.mobile-overlay.open{opacity:1;pointer-events:all}
+.mobile-overlay a{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:var(--text);text-decoration:none;opacity:.7;transition:all .3s}
+.mobile-overlay a:hover{opacity:1;color:var(--accent)}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:6rem clamp(1rem,4vw,3rem)}
+.hero-grid-bg{position:absolute;inset:0;background-image:
+  radial-gradient(circle at 1px 1px,rgba(var(--accent-rgb),var(--grid-opacity)) 1px,transparent 0);
+  background-size:40px 40px;z-index:0}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(120px);opacity:.12;z-index:0}
+.hero-glow-1{background:var(--accent);top:-10%;right:-5%;animation:glowFloat 8s ease-in-out infinite}
+.hero-glow-2{background:var(--accent2);bottom:-15%;left:-10%;animation:glowFloat 10s ease-in-out infinite reverse}
+@keyframes glowFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+.hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;width:100%}
+.hero-top{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.hero-status{display:inline-flex;align-items:center;gap:.6rem;padding:.45rem 1.2rem;border-radius:100px;border:1px solid rgba(var(--accent-rgb),.25);background:rgba(var(--accent-rgb),.06);font-family:'Fira Code',monospace;font-size:.75rem;font-weight:500;color:var(--accent)}
+.hero-status .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--accent4);position:relative}
+.hero-status .pulse-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:var(--accent4);animation:statusPulse 2s infinite;opacity:0}
+@keyframes statusPulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(2.5);opacity:0}}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3.2rem,7.5vw,6.5rem);font-weight:800;line-height:1;letter-spacing:-3px;margin-bottom:1.5rem}
+.hero-name .line{display:block;overflow:hidden}
+.hero-name .line-inner{display:block;animation:slideUp .8s cubic-bezier(.16,1,.3,1) both}
+.hero-name .line:nth-child(2) .line-inner{animation-delay:.12s}
+.hero-name .accent-text{color:var(--accent);position:relative}
+.hero-name .accent-text::after{content:'';position:absolute;bottom:.05em;left:0;width:100%;height:.08em;background:var(--accent);opacity:.25;border-radius:4px}
+@keyframes slideUp{from{transform:translateY(110%)}to{transform:translateY(0)}}
+.hero-subtitle{font-size:clamp(1rem,1.8vw,1.25rem);color:var(--text2);max-width:650px;margin-bottom:2.5rem;line-height:1.75;animation:fadeIn 1s ease .4s both}
+.hero-subtitle strong{color:var(--text);font-weight:600}
+@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.hero-metrics{display:flex;gap:clamp(1.5rem,3vw,3rem);margin-bottom:2.5rem;flex-wrap:wrap;animation:fadeIn 1s ease .5s both}
+.metric{position:relative}
+.metric::after{content:'';position:absolute;right:calc(-1.5vw - .25rem);top:50%;transform:translateY(-50%);width:1px;height:60%;background:var(--surface-border)}
+.metric:last-child::after{display:none}
+.metric-val{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:800;color:var(--accent);line-height:1.1}
+.metric-label{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px;font-weight:500;font-family:'Fira Code',monospace}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeIn 1s ease .6s both}
+.btn{padding:.75rem 2rem;border-radius:100px;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.3px;transition:all .35s;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;border:none;cursor:pointer;position:relative;overflow:hidden}
+.btn-fill{background:var(--accent);color:var(--bg)}
+.btn-fill:hover{box-shadow:0 0 30px rgba(var(--accent-rgb),.4);transform:translateY(-3px)}
+.btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--surface-border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+.hero-visual-side{position:absolute;right:clamp(1rem,5vw,4rem);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1rem;z-index:2;animation:fadeIn 1s ease .7s both}
+.hero-tag{padding:.6rem 1.2rem;border-radius:14px;background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--surface-border);font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:.6rem;white-space:nowrap;transition:all .35s;box-shadow:var(--shadow-card)}
+.hero-tag:hover{border-color:var(--accent);transform:translateX(-8px)}
+.hero-tag i{color:var(--accent)}
+.hero-tag .tag-accent{color:var(--accent)}
+
+/* ===== MARQUEE ===== */
+.marquee-section{padding:2rem 0;border-top:1px solid var(--surface-border);border-bottom:1px solid var(--surface-border);overflow:hidden;background:var(--bg2);transition:background var(--transition-theme)}
+.marquee-track{display:flex;animation:marquee 35s linear infinite;width:max-content}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-item{padding:.6rem 1.5rem;margin:0 .4rem;border-radius:100px;background:var(--surface);border:1px solid var(--surface-border);font-family:'Fira Code',monospace;font-size:.78rem;font-weight:500;color:var(--text2);white-space:nowrap;transition:all .3s}
+.marquee-item:hover{border-color:var(--accent);color:var(--accent)}
+.marquee-item i{margin-right:.4rem;color:var(--accent)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ===== SECTIONS ===== */
+section{padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,3rem)}
+.section-inner{max-width:1280px;margin:0 auto}
+.section-tag{font-family:'Fira Code',monospace;font-size:.75rem;font-weight:600;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.section-tag::before{content:'';width:32px;height:1.5px;background:var(--accent)}
+.section-heading{font-family:'Syne',sans-serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:.75rem}
+.section-sub{color:var(--text2);font-size:1.05rem;max-width:550px;line-height:1.75;margin-bottom:3.5rem}
+
+/* ===== ABOUT ===== */
+#about{background:var(--bg);transition:background var(--transition-theme)}
+.about-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:start}
+.about-text{font-size:1.02rem;color:var(--text2);line-height:1.85;margin-bottom:2rem}
+.about-text strong{color:var(--text);font-weight:600}
+.terminal{border-radius:16px;background:var(--surface);border:1px solid var(--surface-border);overflow:hidden;box-shadow:var(--shadow-card);transition:all var(--transition-theme)}
+.terminal-bar{padding:.65rem 1rem;background:var(--bg3);display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--surface-border);transition:background var(--transition-theme)}
+.terminal-dot{width:10px;height:10px;border-radius:50%}
+.terminal-dot:nth-child(1){background:#ff5f57}
+.terminal-dot:nth-child(2){background:#ffbd2e}
+.terminal-dot:nth-child(3){background:#28c840}
+.terminal-title{flex:1;text-align:center;font-size:.72rem;color:var(--text3);font-family:'Fira Code',monospace}
+.terminal-body{padding:1.5rem;font-family:'Fira Code',monospace;font-size:.8rem;line-height:2;color:var(--text2)}
+.terminal-body .cmd{color:var(--accent4)}
+.terminal-body .flag{color:var(--accent)}
+.terminal-body .val{color:var(--accent2)}
+.terminal-body .comment{color:var(--text3);font-style:italic}
+.edu-cards{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.edu-card{padding:1.5rem;border-radius:14px;background:var(--card-bg);backdrop-filter:blur(8px);border:1px solid var(--surface-border);transition:all .4s;position:relative;overflow:hidden}
+.edu-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--gradient);border-radius:4px 0 0 4px}
+.edu-card:hover{border-color:var(--accent);transform:translateX(6px);box-shadow:var(--glow)}
+.edu-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.2rem}
+.edu-card .school{color:var(--accent);font-weight:600;font-size:.9rem}
+.edu-card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:.6rem;flex-wrap:wrap;gap:.5rem}
+.edu-card .period{font-family:'Fira Code',monospace;font-size:.75rem;color:var(--text3)}
+.edu-card .gpa{padding:.25rem .75rem;border-radius:100px;background:rgba(var(--accent-rgb),.1);color:var(--accent);font-size:.78rem;font-weight:700;font-family:'Fira Code',monospace}
+
+/* ===== EXPERIENCE ===== */
+#experience{background:var(--bg2);transition:background var(--transition-theme)}
+.exp-list{display:flex;flex-direction:column;gap:1.5rem}
+.exp-card{display:grid;grid-template-columns:200px 1fr;gap:2rem;padding:2rem;border-radius:16px;background:var(--card-bg);backdrop-filter:blur(8px);border:1px solid var(--surface-border);transition:all .45s;position:relative}
+.exp-card:hover{border-color:var(--accent);box-shadow:var(--glow);transform:translateY(-4px)}
+.exp-left{display:flex;flex-direction:column;gap:.5rem}
+.exp-period{font-family:'Fira Code',monospace;font-size:.78rem;color:var(--text3);line-height:1.6}
+.exp-company{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--accent)}
+.exp-right h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:.75rem}
+.exp-right ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.exp-right li{padding-left:1.2rem;position:relative;font-size:.9rem;color:var(--text2);line-height:1.7}
+.exp-right li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-weight:700}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.tag{padding:.2rem .65rem;border-radius:100px;font-family:'Fira Code',monospace;font-size:.7rem;font-weight:500;background:rgba(var(--accent-rgb),.08);color:var(--accent);border:1px solid rgba(var(--accent-rgb),.15);transition:all .3s}
+.tag:hover{background:rgba(var(--accent-rgb),.15)}
+
+/* ===== PROJECTS ===== */
+#projects{background:var(--bg);transition:background var(--transition-theme)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1.5rem}
+.project-card{border-radius:16px;background:var(--card-bg);backdrop-filter:blur(8px);border:1px solid var(--surface-border);overflow:hidden;transition:all .45s;position:relative}
+.project-card:hover{border-color:var(--accent);box-shadow:var(--glow);transform:translateY(-6px)}
+.project-top{height:10px;background:var(--gradient);position:relative}
+.project-top::after{content:'';position:absolute;inset:0;background:var(--gradient2);opacity:0;transition:opacity .5s}
+.project-card:hover .project-top::after{opacity:1}
+.project-body{padding:1.75rem}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.project-icon{width:44px;height:44px;border-radius:12px;background:rgba(var(--accent-rgb),.1);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.1rem;flex-shrink:0}
+.project-links{display:flex;gap:.5rem}
+.project-links a{width:36px;height:36px;border-radius:10px;border:1px solid var(--surface-border);display:flex;align-items:center;justify-content:center;color:var(--text2);text-decoration:none;font-size:.85rem;transition:all .3s}
+.project-links a:hover{border-color:var(--accent);color:var(--accent)}
+.project-body h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.08rem;margin-bottom:.6rem;line-height:1.3}
+.project-body h3 a{color:var(--text);text-decoration:none;transition:color .3s}
+.project-body h3 a:hover{color:var(--accent)}
+.project-body p{font-size:.86rem;color:var(--text2);line-height:1.7;margin-bottom:1.2rem}
+.project-date{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--text3);margin-bottom:.6rem}
+
+/* ===== RESEARCH ===== */
+#research{background:var(--bg2);transition:background var(--transition-theme)}
+.research-card{padding:2rem;border-radius:16px;background:var(--card-bg);backdrop-filter:blur(8px);border:1px solid var(--surface-border);margin-bottom:1.5rem;transition:all .45s;position:relative;overflow:hidden}
+.research-card::after{content:'RESEARCH';position:absolute;top:1.2rem;right:1.5rem;font-family:'Fira Code',monospace;font-size:.65rem;font-weight:700;color:var(--accent);letter-spacing:2px;opacity:.4}
+.research-card:hover{border-color:var(--accent);transform:translateX(8px);box-shadow:var(--glow)}
+.research-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:.25rem}
+.research-card .lab{color:var(--accent);font-weight:600;font-size:.9rem;margin-bottom:.6rem}
+.research-card .period-r{font-family:'Fira Code',monospace;font-size:.75rem;color:var(--text3);margin-bottom:.8rem}
+.research-card p{font-size:.88rem;color:var(--text2);line-height:1.7}
+
+/* ===== SKILLS ===== */
+#skills{background:var(--bg);transition:background var(--transition-theme)}
+.skill-category{margin-bottom:3rem}
+.skill-category-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.skill-category-title i{color:var(--accent);font-size:.95rem}
+.skill-pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.skill-pill{padding:.5rem 1.1rem;border-radius:100px;background:var(--surface);border:1px solid var(--surface-border);font-size:.82rem;font-weight:500;color:var(--text2);transition:all .35s;cursor:default}
+.skill-pill:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);box-shadow:0 6px 20px rgba(var(--accent-rgb),.1)}
+.skill-pill.highlight{background:rgba(var(--accent-rgb),.08);border-color:rgba(var(--accent-rgb),.2);color:var(--accent);font-weight:600}
+
+/* ===== PUBLICATIONS ===== */
+#publications{background:var(--bg2);transition:background var(--transition-theme)}
+.pub-card{display:flex;gap:1.25rem;padding:1.5rem;border-radius:14px;background:var(--card-bg);border:1px solid var(--surface-border);margin-bottom:1rem;transition:all .4s;align-items:flex-start}
+.pub-card:hover{border-color:var(--accent);transform:translateX(6px)}
+.pub-num{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--accent);opacity:.35;min-width:30px}
+.pub-card h4{font-size:.98rem;font-weight:700;margin-bottom:.25rem;line-height:1.4}
+.pub-card h4 a{color:var(--text);text-decoration:none;transition:color .3s}
+.pub-card h4 a:hover{color:var(--accent)}
+.pub-venue{font-size:.82rem;color:var(--text3)}
+.pub-badge{display:inline-block;padding:.15rem .6rem;border-radius:100px;font-family:'Fira Code',monospace;font-size:.65rem;font-weight:700;margin-left:.5rem}
+.badge-patent{background:rgba(var(--accent2-rgb),.12);color:var(--accent2)}
+.badge-ieee{background:rgba(var(--accent-rgb),.12);color:var(--accent)}
+
+/* ===== NEWS ===== */
+#news{background:var(--bg);transition:background var(--transition-theme)}
+.news-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;max-height:500px;overflow-y:auto;padding-right:.5rem;scrollbar-width:thin;scrollbar-color:var(--accent) var(--bg3)}
+.news-item{display:flex;gap:1rem;padding:1rem 1.25rem;border-radius:12px;background:var(--card-bg);border:1px solid var(--surface-border);transition:all .3s;align-items:flex-start}
+.news-item:hover{border-color:var(--accent)}
+.news-date{font-family:'Fira Code',monospace;font-size:.7rem;color:var(--accent);min-width:75px;font-weight:600;padding-top:3px}
+.news-content{font-size:.85rem;color:var(--text2);line-height:1.6}
+.news-content strong{color:var(--text)}
+
+/* ===== RESUME BANNER ===== */
+.resume-section{padding:3rem clamp(1rem,4vw,3rem)}
+.resume-banner{max-width:1280px;margin:0 auto;padding:3.5rem;border-radius:20px;background:var(--gradient);position:relative;overflow:hidden;text-align:center}
+.resume-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='.6' fill='rgba(255,255,255,.1)'/%3E%3C/svg%3E");background-size:20px 20px}
+.resume-banner *{position:relative;z-index:1}
+.resume-banner h3{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:.5rem}
+.resume-banner p{color:rgba(255,255,255,.8);margin-bottom:1.5rem;font-size:1rem}
+.resume-banner .btn{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3);backdrop-filter:blur(10px)}
+.resume-banner .btn:hover{background:rgba(255,255,255,.25)}
+
+/* ===== CONTACT ===== */
+#contact{background:var(--bg2);transition:background var(--transition-theme)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.contact-links{display:flex;flex-direction:column;gap:.75rem}
+.contact-link{display:flex;align-items:center;gap:1.25rem;padding:1.25rem 1.5rem;border-radius:14px;background:var(--card-bg);border:1px solid var(--surface-border);text-decoration:none;color:var(--text);transition:all .4s}
+.contact-link:hover{border-color:var(--accent);transform:translateX(8px);box-shadow:var(--glow)}
+.contact-link-icon{width:48px;height:48px;border-radius:12px;background:rgba(var(--accent-rgb),.1);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.15rem;flex-shrink:0}
+.contact-link h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;margin-bottom:.1rem}
+.contact-link p{font-size:.82rem;color:var(--text2)}
+.contact-right-panel{padding:2.5rem;border-radius:16px;background:var(--card-bg);border:1px solid var(--surface-border)}
+.contact-right-panel h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:.5rem}
+.contact-right-panel > p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem;line-height:1.7}
+.social-row{display:flex;flex-wrap:wrap;gap:.75rem}
+.social-btn{display:flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;border-radius:100px;border:1px solid var(--surface-border);background:var(--surface);color:var(--text);text-decoration:none;font-size:.83rem;font-weight:600;transition:all .35s}
+.social-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+.social-btn i{font-size:1rem}
+.lang-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--surface-border)}
+.lang-pill{padding:.35rem .85rem;border-radius:100px;font-size:.78rem;font-weight:600;font-family:'Fira Code',monospace}
+
+/* ===== FOOTER ===== */
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--surface-border);transition:all var(--transition-theme)}
+.footer p{font-size:.82rem;color:var(--text3)}
+.footer a{color:var(--accent);text-decoration:none}
+.footer-line{font-family:'Fira Code',monospace;font-size:.7rem;color:var(--text3);opacity:.5;margin-top:.5rem}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}.reveal-d6{transition-delay:.6s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .about-layout,.contact-layout{grid-template-columns:1fr}
+  .hero-visual-side{display:none}
+  .projects-grid{grid-template-columns:1fr}
+  .exp-card{grid-template-columns:1fr}
+  .news-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-center,.nav-cta{display:none}
+  .hamburger{display:block}
+  section{padding:3rem 1.25rem}
+  .hero{min-height:auto;padding:7rem 1.25rem 3rem}
+  .hero-metrics{gap:1.25rem}
+  .metric::after{display:none}
+  .hero-name{letter-spacing:-2px}
+  .hero-actions{flex-direction:column;width:100%}
+  .btn{justify-content:center;width:100%}
+  .projects-grid{grid-template-columns:1fr}
+  .skill-pills{gap:.35rem}
+  .skill-pill{padding:.4rem .85rem;font-size:.78rem}
+  .cursor,.cursor-dot{display:none}
+}
+@media(max-width:480px){
+  .hero-name{font-size:2.6rem;letter-spacing:-1.5px}
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ========== NAV ========== -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">hemanth<span>.</span></a>
+    <ul class="nav-center">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>
+      </button>
+      <a href="https://www.dropbox.com/scl/fi/h9zhkcidlzqa533y605yx/Hemanth_Resume.pdf?rlkey=bfkzx15xb0pnb3ivqgykj9d3h&st=lh6wzzjg&dl=0" target="_blank" class="nav-cta">Resume ↗</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay">
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#projects" onclick="closeMob()">Projects</a>
+  <a href="#research" onclick="closeMob()">Research</a>
+  <a href="#skills" onclick="closeMob()">Skills</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <a href="https://www.dropbox.com/scl/fi/h9zhkcidlzqa533y605yx/Hemanth_Resume.pdf?rlkey=bfkzx15xb0pnb3ivqgykj9d3h&st=lh6wzzjg&dl=0" target="_blank" class="btn btn-fill" onclick="closeMob()">Resume ↗</a>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-status"><span class="pulse-dot"></span> Open to Full-Time Roles — 2026</div>
+    </div>
+    <h1 class="hero-name">
+      <span class="line"><span class="line-inner">Hemanth</span></span>
+      <span class="line"><span class="line-inner"><span class="accent-text">Murali</span></span></span>
+    </h1>
+    <p class="hero-subtitle"><strong>Robotics & AI Engineer</strong> — MS Robotics at the <strong>University of Michigan</strong>. I build autonomous systems that perceive, plan, and act — fusing deep learning, controls, and real hardware.</p>
+    <div class="hero-metrics">
+      <div class="metric"><div class="metric-val">3.925</div><div class="metric-label">GPA / 4.0</div></div>
+      <div class="metric"><div class="metric-val">6+</div><div class="metric-label">Work Roles</div></div>
+      <div class="metric"><div class="metric-val">3</div><div class="metric-label">Research Labs</div></div>
+      <div class="metric"><div class="metric-val">$85K</div><div class="metric-label">Startup Funded</div></div>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-fill"><i class="fa-solid fa-cube"></i> Explore Work</a>
+      <a href="#contact" class="btn btn-ghost"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-visual-side">
+    <div class="hero-tag"><i class="fa-solid fa-robot"></i> ROS 2 · MoveIt · MuJoCo</div>
+    <div class="hero-tag"><i class="fa-solid fa-brain"></i> PyTorch · TensorRT · <span class="tag-accent">CUDA</span></div>
+    <div class="hero-tag"><i class="fa-solid fa-car"></i> SLAM · MPC · Sensor Fusion</div>
+    <div class="hero-tag"><i class="fa-solid fa-graduation-cap"></i> UMich Robotics <span class="tag-accent">'26</span></div>
+  </div>
+</section>
+
+<!-- ========== MARQUEE ========== -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item"><i class="fa-brands fa-python"></i> Python</span>
+    <span class="marquee-item"><i class="fa-solid fa-c"></i> C++17/20</span>
+    <span class="marquee-item"><i class="fa-solid fa-robot"></i> ROS 2</span>
+    <span class="marquee-item"><i class="fa-solid fa-fire"></i> PyTorch</span>
+    <span class="marquee-item"><i class="fa-solid fa-microchip"></i> CUDA</span>
+    <span class="marquee-item"><i class="fa-solid fa-eye"></i> OpenCV</span>
+    <span class="marquee-item"><i class="fa-solid fa-cube"></i> MuJoCo</span>
+    <span class="marquee-item"><i class="fa-solid fa-route"></i> Motion Planning</span>
+    <span class="marquee-item"><i class="fa-solid fa-car"></i> CARLA</span>
+    <span class="marquee-item"><i class="fa-brands fa-docker"></i> Docker</span>
+    <span class="marquee-item"><i class="fa-solid fa-brain"></i> TensorRT</span>
+    <span class="marquee-item"><i class="fa-solid fa-satellite-dish"></i> LiDAR</span>
+    <span class="marquee-item"><i class="fa-solid fa-hand"></i> MoveIt</span>
+    <span class="marquee-item"><i class="fa-brands fa-git-alt"></i> Git / CI-CD</span>
+    <span class="marquee-item"><i class="fa-solid fa-gamepad"></i> Isaac Sim</span>
+    <span class="marquee-item"><i class="fa-solid fa-chart-line"></i> RL (PPO / SAC)</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item"><i class="fa-brands fa-python"></i> Python</span>
+    <span class="marquee-item"><i class="fa-solid fa-c"></i> C++17/20</span>
+    <span class="marquee-item"><i class="fa-solid fa-robot"></i> ROS 2</span>
+    <span class="marquee-item"><i class="fa-solid fa-fire"></i> PyTorch</span>
+    <span class="marquee-item"><i class="fa-solid fa-microchip"></i> CUDA</span>
+    <span class="marquee-item"><i class="fa-solid fa-eye"></i> OpenCV</span>
+    <span class="marquee-item"><i class="fa-solid fa-cube"></i> MuJoCo</span>
+    <span class="marquee-item"><i class="fa-solid fa-route"></i> Motion Planning</span>
+    <span class="marquee-item"><i class="fa-solid fa-car"></i> CARLA</span>
+    <span class="marquee-item"><i class="fa-brands fa-docker"></i> Docker</span>
+    <span class="marquee-item"><i class="fa-solid fa-brain"></i> TensorRT</span>
+    <span class="marquee-item"><i class="fa-solid fa-satellite-dish"></i> LiDAR</span>
+    <span class="marquee-item"><i class="fa-solid fa-hand"></i> MoveIt</span>
+    <span class="marquee-item"><i class="fa-brands fa-git-alt"></i> Git / CI-CD</span>
+    <span class="marquee-item"><i class="fa-solid fa-gamepad"></i> Isaac Sim</span>
+    <span class="marquee-item"><i class="fa-solid fa-chart-line"></i> RL (PPO / SAC)</span>
+  </div>
+</div>
+
+<!-- ========== ABOUT ========== -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-layout">
+      <div>
+        <div class="section-tag reveal">About</div>
+        <h2 class="section-heading reveal reveal-d1">Building machines<br>that think & act.</h2>
+        <p class="about-text reveal reveal-d2">I'm a robotics engineer at the <strong>University of Michigan Robotics Institute</strong>, where I work on perception, planning, and control for autonomous systems. My background spans <strong>ISRO</strong> (LiDAR perception), <strong>IIT Bombay</strong> (biomedical diagnostics), and founding <strong>TOOFAN</strong> — an EduTech startup that raised $85K.<br><br>I care about building systems that work reliably in the real world: sensor fusion that doesn't hallucinate, planners that handle edge cases, and control loops that close in real-time. Currently researching <strong>VLM-based perception</strong> for autonomous driving at the <strong>FRoG Laboratory</strong>.</p>
+        <div class="edu-cards">
+          <div class="edu-card reveal reveal-d3">
+            <h4>MS in Robotics</h4>
+            <div class="school">University of Michigan — Ann Arbor</div>
+            <div class="meta"><span class="period">Aug 2024 — May 2026</span><span class="gpa">3.925 / 4.0</span></div>
+          </div>
+          <div class="edu-card reveal reveal-d4">
+            <h4>B.Tech in AI & Data Science</h4>
+            <div class="school">Sri Sai Ram Engineering College, India</div>
+            <div class="meta"><span class="period">Aug 2020 — Apr 2024</span><span class="gpa">9.20 / 10</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-d2">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+            <span class="terminal-title">hemanth@umich ~ /about</span>
+          </div>
+          <div class="terminal-body">
+            <span class="comment"># who am I?</span><br>
+            <span class="cmd">$</span> cat <span class="flag">education</span><br>
+            → MS Robotics <span class="val">@UMich</span> (3.925 GPA)<br>
+            → B.Tech AI&DS <span class="val">@Sairam</span> (9.2/10)<br><br>
+            <span class="comment"># what do I work on?</span><br>
+            <span class="cmd">$</span> ls <span class="flag">research/</span><br>
+            → VLM Perception <span class="val">(FRoG Lab)</span><br>
+            → Gaussian Splatting <span class="val">(MCity)</span><br>
+            → Trajectory Planning <span class="val">(SAMs Lab)</span><br><br>
+            <span class="comment"># key courses</span><br>
+            <span class="cmd">$</span> cat <span class="flag">courses.txt</span><br>
+            → Reinforcement Learning<br>
+            → Self-Driving Cars<br>
+            → Deep Learning for Perception<br>
+            → Robotic Manipulation<br>
+            → Action & Perception<br><br>
+            <span class="comment"># languages I speak</span><br>
+            <span class="cmd">$</span> echo <span class="val">"English Tamil Hindi German"</span><br><br>
+            <span class="cmd">$</span> <span class="flag" id="terminalCursor">▊</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EXPERIENCE ========== -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-tag reveal">Experience</div>
+    <h2 class="section-heading reveal reveal-d1">Where I've shipped code.</h2>
+    <p class="section-sub reveal reveal-d2">From India's space agency to Michigan's robotics labs — building systems that run on real hardware.</p>
+
+    <div class="exp-list">
+      <div class="exp-card reveal">
+        <div class="exp-left">
+          <div class="exp-period">Dec 2024 — Present</div>
+          <div class="exp-company">Michigan Robotics</div>
+        </div>
+        <div class="exp-right">
+          <h3>Robotics Software Engineer (Part-time)</h3>
+          <ul>
+            <li>Maintain production <strong>C++ and Python ROS 2</strong> packages for perception, control, and embedded hardware across robotic platforms.</li>
+            <li>Diagnose and resolve <strong>500+ cross-stack failures</strong> in GPU workloads, ROS 2 nodes, and embedded controllers; built Bash/PowerShell monitoring tools reducing fault detection time by <strong>40%</strong>.</li>
+            <li>Deploy <strong>CUDA-accelerated ML inference</strong> pipelines with PyTorch and TensorRT, moving research prototypes into stable production.</li>
+            <li>Lead troubleshooting in high-stakes demos, coordinating <strong>three engineering teams</strong> to fix real-time failures under tight deadlines.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">C++</span><span class="tag">ROS 2</span><span class="tag">CUDA</span><span class="tag">TensorRT</span><span class="tag">PyTorch</span><span class="tag">Linux</span></div>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-left">
+          <div class="exp-period">Jul — Aug 2023</div>
+          <div class="exp-company">ISRO — URSC</div>
+        </div>
+        <div class="exp-right">
+          <h3>Project Intern — Perception & ML Systems</h3>
+          <ul>
+            <li>Developed Python perception pipelines for <strong>real-time 3D point-cloud processing</strong> with obstacle detection within required latency.</li>
+            <li>Optimized <strong>PointNet++ with CUDA kernels</strong> and TensorRT quantization — improved throughput from <strong>12 → 60 FPS</strong> on Velodyne sensor data.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">LiDAR</span><span class="tag">PointNet++</span><span class="tag">CUDA</span><span class="tag">TensorRT</span><span class="tag">Python</span></div>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-left">
+          <div class="exp-period">Jan — Jun 2023</div>
+          <div class="exp-company">IIT Bombay</div>
+        </div>
+        <div class="exp-right">
+          <h3>Research Intern</h3>
+          <ul>
+            <li>Designed a portable <strong>COVID detection system</strong> using Python with cyanine dye (DiSc2) for real-time diagnostics.</li>
+            <li>Engineered data visualization and hardware interaction with NumPy, SciPy, SpiDev, RPi.GPIO — improving <strong>efficiency by 30%</strong>.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Python</span><span class="tag">SciPy</span><span class="tag">RPi.GPIO</span><span class="tag">Data Viz</span></div>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-left">
+          <div class="exp-period">Nov 2022</div>
+          <div class="exp-company">Ingage Technologies</div>
+        </div>
+        <div class="exp-right">
+          <h3>AR/VR Developer Intern</h3>
+          <ul>
+            <li>Developed a VR chemistry lab simulation with <strong>Unreal Engine</strong> for immersive student interaction with chemicals.</li>
+            <li>Created a rat anatomy VR module for medical education — organ-level immersive exploration.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Unreal Engine</span><span class="tag">VR</span><span class="tag">3D Simulation</span></div>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-left">
+          <div class="exp-period">May — Aug 2022</div>
+          <div class="exp-company">IDEX — DIO</div>
+        </div>
+        <div class="exp-right">
+          <h3>SDE Intern (Defence)</h3>
+          <ul>
+            <li>Developed an ML model for military aircraft edge identification using <strong>HOG and SIFT</strong> algorithms.</li>
+            <li>Integrated <strong>OpenCV</strong> for real-time image recognition with high-accuracy object identification.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">ML</span><span class="tag">OpenCV</span><span class="tag">HOG</span><span class="tag">SIFT</span></div>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-left">
+          <div class="exp-period">May — Jun 2021</div>
+          <div class="exp-company">Smartail.AI</div>
+        </div>
+        <div class="exp-right">
+          <h3>Data Scientist</h3>
+          <ul>
+            <li>Processed masked data from handwritten student documents; automated API workflows with Postman into Docker containers.</li>
+          </ul>
+          <div class="exp-tags"><span class="tag">Data Science</span><span class="tag">Docker</span><span class="tag">Postman</span><span class="tag">APIs</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROJECTS ========== -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-tag reveal">Projects</div>
+    <h2 class="section-heading reveal reveal-d1">What I've built.</h2>
+    <p class="section-sub reveal reveal-d2">From self-driving stacks to quadruped locomotion — every project solves a real robotics problem.</p>
+
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-car"></i></div>
+            <div class="project-links"><a href="#" title="Code"><i class="fa-brands fa-github"></i></a></div>
+          </div>
+          <div class="project-date">Aug — Dec 2025</div>
+          <h3><a href="#">End-to-End Autonomous Driving with MPC</a></h3>
+          <p>C++/ROS 2 driving stack fusing camera & LiDAR through TransFuser++. Replaced PID with nonlinear MPC for trajectory tracking — achieved <strong>1.3x lateral tracking improvement</strong> in closed-loop CARLA simulation.</p>
+          <div class="exp-tags"><span class="tag">C++</span><span class="tag">ROS 2</span><span class="tag">CARLA</span><span class="tag">MPC</span><span class="tag">PyTorch</span><span class="tag">LiDAR-Camera Fusion</span></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-hand"></i></div>
+            <div class="project-links"><a href="#" title="Code"><i class="fa-brands fa-github"></i></a></div>
+          </div>
+          <div class="project-date">Jan — May 2025</div>
+          <h3><a href="#">Object Segmentation & Grasping — FETCH Robot</a></h3>
+          <p>Real-time 3D segmentation and 6-DoF grasp prediction on a FETCH manipulator using PointNet++ and AnyGrasp. Transparent object grasp via TransCG — improved <strong>accuracy by 15%</strong> on GraspNet-1B under 100ms inference.</p>
+          <div class="exp-tags"><span class="tag">PointNet++</span><span class="tag">AnyGrasp</span><span class="tag">ROS 2</span><span class="tag">Open3D</span><span class="tag">PyTorch</span></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-dog"></i></div>
+            <div class="project-links"><a href="#" title="Code"><i class="fa-brands fa-github"></i></a></div>
+          </div>
+          <div class="project-date">Sep — Dec 2025</div>
+          <h3><a href="#">Quadruped Locomotion — PPO + Rapid Motor Adaptation</a></h3>
+          <p>Trained PPO locomotion policies with Rapid Motor Adaptation for online terrain adaptation. Handled <strong>40% more terrain variation</strong> than base PPO across friction and slope changes in MuJoCo/BRAX.</p>
+          <div class="exp-tags"><span class="tag">PPO</span><span class="tag">MuJoCo</span><span class="tag">BRAX</span><span class="tag">PyTorch</span><span class="tag">Domain Rand.</span></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-robot"></i></div>
+            <div class="project-links"><a href="https://github.com/vikrams169/Autonomous-Robot-Path-Planning-Using-A-star-RRT-and-RRT-star" target="_blank"><i class="fa-brands fa-github"></i></a></div>
+          </div>
+          <div class="project-date">Jan 2025 — Present</div>
+          <h3><a href="https://github.com/vikrams169/Autonomous-Robot-Path-Planning-Using-A-star-RRT-and-RRT-star" target="_blank">Autonomous Microbot Navigation — 6DOF Arm</a></h3>
+          <p>Developing a 6DOF robotic arm to autonomously control magnetic fields, guiding microbots to navigate obstacles with <strong>95% accuracy</strong>. Integrating perception, path planning, and manipulation.</p>
+          <div class="exp-tags"><span class="tag">ROS 2</span><span class="tag">Python</span><span class="tag">6DOF Arm</span><span class="tag">Path Planning</span></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-crosshairs"></i></div>
+            <div class="project-links"><a href="https://drive.google.com/file/d/1mt9smWhdD2h2jNuwzEMhumXJB7punJnK/view?usp=sharing" target="_blank"><i class="fa-solid fa-file-lines"></i></a></div>
+          </div>
+          <div class="project-date">Jan — Apr 2025</div>
+          <h3><a href="https://drive.google.com/file/d/1mt9smWhdD2h2jNuwzEMhumXJB7punJnK/view?usp=sharing" target="_blank">Robotics Systems Lab — Armlab (2nd Place)</a></h3>
+          <p>RGB-LiDAR camera for block detection with depth estimation — boosted accuracy <strong>30%</strong>. Implemented kinematics for motion planning and autonomous grasping with a 5-DOF arm.</p>
+          <div class="exp-tags"><span class="tag">ROS 2</span><span class="tag">OpenCV</span><span class="tag">C++</span><span class="tag">Python</span><span class="tag">NumPy</span></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="project-links"><a href="https://github.com/HemZBond/ROB422_Intro-to-Algorithmic-Robotics" target="_blank"><i class="fa-brands fa-github"></i></a></div>
+          </div>
+          <div class="project-date">Nov 2024 — Jan 2025</div>
+          <h3><a href="https://github.com/HemZBond/ROB422_Intro-to-Algorithmic-Robotics" target="_blank">Autonomous Path Finding — A*, ANA*, RRT-Connect</a></h3>
+          <p>A* path planner for PR2 mobile manipulator. Implemented ANA* for motion planning (<strong>98% accuracy</strong>) and RRT-Connect for optimized path generation in PyBullet.</p>
+          <div class="exp-tags"><span class="tag">Python</span><span class="tag">PyBullet</span><span class="tag">A*</span><span class="tag">RRT</span></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-gears"></i></div>
+            <div class="project-links"><a href="https://github.com/HemZBond/ROB599_Intro-to-Robotic-Manipulation" target="_blank"><i class="fa-brands fa-github"></i></a></div>
+          </div>
+          <div class="project-date">Sep — Dec 2024</div>
+          <h3><a href="https://github.com/HemZBond/ROB599_Intro-to-Robotic-Manipulation" target="_blank">Robotic Arm Manipulation — Inverse Kinematics</a></h3>
+          <p>Applied IK for arm motion and grasping, using PCA, RANSAC, and ICP for object detection, alignment, and 3D reconstruction — <strong>97% position accuracy</strong> in Drake.</p>
+          <div class="exp-tags"><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">Drake</span><span class="tag">IK</span></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top"></div>
+        <div class="project-body">
+          <div class="project-header">
+            <div class="project-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="project-links"><a href="https://toofanedu.netlify.app/" target="_blank"><i class="fa-solid fa-globe"></i></a></div>
+          </div>
+          <div class="project-date">Feb 2023 — Present</div>
+          <h3><a href="https://toofanedu.netlify.app/" target="_blank">TOOFAN — Education for the Future</a></h3>
+          <p>Founder & CEO of EduTech startup leveraging AR/VR & AI Voice Assistant for modern education. Secured <strong>$85,000 in funding</strong> while leading a full engineering team.</p>
+          <div class="exp-tags"><span class="tag">Unity</span><span class="tag">AR/VR</span><span class="tag">Firebase</span><span class="tag">AI Voice</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESEARCH ========== -->
+<section id="research">
+  <div class="section-inner">
+    <div class="section-tag reveal">Research</div>
+    <h2 class="section-heading reveal reveal-d1">Lab work that matters.</h2>
+    <p class="section-sub reveal reveal-d2">Three active research labs, focused on perception, mapping, and manipulation.</p>
+
+    <div class="research-card reveal">
+      <h3>Radar-Enhanced VLM Perception for Autonomous Driving</h3>
+      <div class="lab">Field Robotics Group (FRoG) Laboratory — University of Michigan</div>
+      <div class="period-r">Jan 2026 — Present</div>
+      <p>Conducting temporal evaluations of large-scale vision-language models (Qwen2.5-VL, InternVL) for autonomous perception robustness. Improved <strong>15% benchmark</strong> on Qwen-VL-8B for temporal understanding using ego-centric temporal cognitive maps.</p>
+    </div>
+
+    <div class="research-card reveal">
+      <h3>LiDAR Mapping & Gaussian Splatting for Warehouse Autonomy</h3>
+      <div class="lab">MCity — University of Michigan</div>
+      <div class="period-r">Sep — Dec 2025</div>
+      <p>Created warehouse-scale LiDAR mapping pipeline using Gaussian Splatting. Profiled GPU workloads with Nsight; corrected a <strong>5cm sensor misalignment</strong> degrading downstream perception accuracy.</p>
+    </div>
+
+    <div class="research-card reveal">
+      <h3>Trajectory Planning for MyCobot280 Arm</h3>
+      <div class="lab">SAMs Laboratory — University of Michigan</div>
+      <div class="period-r">Jan — May 2025</div>
+      <p>Engineered a full ROS 2 platform with A*, RRT* planning, IKFast IK, and MoveIt on a 6-DOF arm. Set up <strong>CMake and CI pipelines</strong> for reproducible sim-to-deployment workflows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SKILLS ========== -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-tag reveal">Skills</div>
+    <h2 class="section-heading reveal reveal-d1">The toolbox.</h2>
+    <p class="section-sub reveal reveal-d2">Everything I use to build perception, planning, and control systems.</p>
+
+    <div class="skill-category reveal">
+      <div class="skill-category-title"><i class="fa-solid fa-code"></i> Languages</div>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Python</span><span class="skill-pill highlight">C++ (C++17/20)</span>
+        <span class="skill-pill">C</span><span class="skill-pill">Embedded C</span>
+        <span class="skill-pill highlight">MATLAB</span><span class="skill-pill">Bash</span>
+        <span class="skill-pill">SQL</span><span class="skill-pill">PowerShell</span><span class="skill-pill">LaTeX</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal">
+      <div class="skill-category-title"><i class="fa-solid fa-layer-group"></i> Frameworks & Libraries</div>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">ROS 2</span><span class="skill-pill highlight">PyTorch</span>
+        <span class="skill-pill">TensorFlow</span><span class="skill-pill highlight">TensorRT</span>
+        <span class="skill-pill highlight">OpenCV</span><span class="skill-pill">Open3D</span>
+        <span class="skill-pill highlight">MoveIt</span><span class="skill-pill">Drake</span>
+        <span class="skill-pill">PCL</span><span class="skill-pill">NumPy</span><span class="skill-pill">Pandas</span>
+        <span class="skill-pill">LangChain</span><span class="skill-pill">Scikit-Learn</span><span class="skill-pill">Keras</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal">
+      <div class="skill-category-title"><i class="fa-solid fa-wrench"></i> Tools & Platforms</div>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Linux</span><span class="skill-pill highlight">Docker</span>
+        <span class="skill-pill">Git</span><span class="skill-pill">CI/CD</span>
+        <span class="skill-pill">CMake</span><span class="skill-pill highlight">CUDA</span>
+        <span class="skill-pill">Nsight</span><span class="skill-pill highlight">Isaac Sim</span>
+        <span class="skill-pill highlight">MuJoCo</span><span class="skill-pill">Gazebo</span>
+        <span class="skill-pill">CARLA</span><span class="skill-pill">ManiSkill</span><span class="skill-pill">RViz</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal">
+      <div class="skill-category-title"><i class="fa-solid fa-brain"></i> AI / ML / Perception</div>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Sensor Fusion</span><span class="skill-pill highlight">SLAM</span>
+        <span class="skill-pill">BEV Fusion</span><span class="skill-pill">NeRF</span>
+        <span class="skill-pill">Gaussian Splatting</span><span class="skill-pill">VLMs</span>
+        <span class="skill-pill">LLMs</span><span class="skill-pill">RAG</span>
+        <span class="skill-pill">Transformers</span><span class="skill-pill">Diffusion Policy</span>
+        <span class="skill-pill highlight">RL (PPO, SAC)</span><span class="skill-pill">Object Detection</span>
+        <span class="skill-pill">Segmentation</span><span class="skill-pill">Depth Estimation</span>
+        <span class="skill-pill">Point-Cloud Processing</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal">
+      <div class="skill-category-title"><i class="fa-solid fa-compass-drafting"></i> Controls & Planning</div>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">MPC</span><span class="skill-pill">Kalman Filters (EKF)</span>
+        <span class="skill-pill">CBFs</span><span class="skill-pill highlight">Motion Planning (RRT*, A*, D*)</span>
+        <span class="skill-pill">Inverse Kinematics</span><span class="skill-pill">Grasp Planning</span>
+        <span class="skill-pill">Trajectory Optimization</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PUBLICATIONS ========== -->
+<section id="publications">
+  <div class="section-inner">
+    <div class="section-tag reveal">Publications</div>
+    <h2 class="section-heading reveal reveal-d1">Research & IP.</h2>
+    <p class="section-sub reveal reveal-d2">Peer-reviewed publications and intellectual property from my research journey.</p>
+
+    <div class="pub-card reveal"><span class="pub-num">01</span><div><h4><a href="https://drive.google.com/file/d/1K0GOv_3NYX30e_cGnlqB6gU0hd0NQSTo/view" target="_blank">System & Method of Smart Education using AR/VR and Virtual Voice Assistant</a> <span class="pub-badge badge-patent">PATENT</span></h4><div class="pub-venue">Intellectual Property of India — App. No.: 202241074792</div></div></div>
+
+    <div class="pub-card reveal"><span class="pub-num">02</span><div><h4><a href="https://ieeexplore.ieee.org/document/10046973" target="_blank">RSSI: Overboard Localization System</a> <span class="pub-badge badge-ieee">IEEE</span></h4><div class="pub-venue">ICPECTS — IEEE Xplorer</div></div></div>
+
+    <div class="pub-card reveal"><span class="pub-num">03</span><div><h4><a href="https://www.ijnrd.org/papers/IJNRD2307125.pdf" target="_blank">Incorporation of VR in Education</a></h4><div class="pub-venue">International Journal of Novel Research and Development</div></div></div>
+
+    <div class="pub-card reveal"><span class="pub-num">04</span><div><h4><a href="https://drive.google.com/file/d/1u7s0KWJC4nG4KR64XahOfpvz2PnGQtBW/view" target="_blank">Smart Classroom: An Innovative Teaching Model</a></h4><div class="pub-venue">Journal of Xidian University</div></div></div>
+  </div>
+</section>
+
+<!-- ========== RESUME BANNER ========== -->
+<div class="resume-section">
+  <div class="resume-banner">
+    <h3>Want the full picture?</h3>
+    <p>Detailed resume with complete project breakdown, coursework, and achievements.</p>
+    <a href="https://www.dropbox.com/scl/fi/h9zhkcidlzqa533y605yx/Hemanth_Resume.pdf?rlkey=bfkzx15xb0pnb3ivqgykj9d3h&st=lh6wzzjg&dl=0" target="_blank" class="btn"><i class="fa-solid fa-download"></i> Download Resume (PDF)</a>
+  </div>
+</div>
+
+<!-- ========== NEWS ========== -->
+<section id="news">
+  <div class="section-inner">
+    <div class="section-tag reveal">Timeline</div>
+    <h2 class="section-heading reveal reveal-d1">Milestones.</h2>
+    <p class="section-sub reveal reveal-d2">Key moments from the journey so far.</p>
+    <div class="news-grid reveal">
+      <div class="news-item"><div class="news-date">Jan 2026</div><div class="news-content">Joined <strong>FRoG Lab</strong> for VLM perception research on autonomous driving.</div></div>
+      <div class="news-item"><div class="news-date">Feb 2025</div><div class="news-content"><strong>2nd place</strong> in ROB 550 ARMLAB Competition at UMich.</div></div>
+      <div class="news-item"><div class="news-date">Dec 2024</div><div class="news-content">Completed <strong>1st semester</strong> at the University of Michigan.</div></div>
+      <div class="news-item"><div class="news-date">Mar 2024</div><div class="news-content">Accepted to <strong>University of Michigan</strong> MS Robotics program.</div></div>
+      <div class="news-item"><div class="news-date">Mar 2024</div><div class="news-content">Honored with <strong>Best Achiever & Outgoing Student</strong> award.</div></div>
+      <div class="news-item"><div class="news-date">Feb 2024</div><div class="news-content">Received <strong>IEEE Best Student Volunteer 2023</strong>.</div></div>
+      <div class="news-item"><div class="news-date">Nov 2023</div><div class="news-content">Secured <strong>$85,000 in funding</strong> for TOOFAN startup.</div></div>
+      <div class="news-item"><div class="news-date">Jul 2023</div><div class="news-content">Presented startup to <strong>AICTE Chairman</strong> at PM Modi event, New Delhi.</div></div>
+      <div class="news-item"><div class="news-date">May 2023</div><div class="news-content">Selected for <strong>ISRO-URSC</strong> Project Internship.</div></div>
+      <div class="news-item"><div class="news-date">Feb 2023</div><div class="news-content">Founded <strong>TOOFAN</strong> as CEO.</div></div>
+      <div class="news-item"><div class="news-date">Dec 2022</div><div class="news-content">Selected for <strong>IIT Bombay</strong> Research Internship.</div></div>
+      <div class="news-item"><div class="news-date">Dec 2022</div><div class="news-content">Organized <strong>Chennai's Biggest AI Summit</strong> — Overall In-Charge.</div></div>
+      <div class="news-item"><div class="news-date">Oct 2022</div><div class="news-content">Selected as <strong>UIPath Student Developer Champion '22</strong>.</div></div>
+      <div class="news-item"><div class="news-date">Aug 2022</div><div class="news-content"><strong>2nd place</strong> in Smart India Hackathon (SIH).</div></div>
+      <div class="news-item"><div class="news-date">Dec 2022</div><div class="news-content">Obtained <strong>Drone License</strong> — Medium Category.</div></div>
+      <div class="news-item"><div class="news-date">Feb 2021</div><div class="news-content"><strong>1st prize</strong> in SAIRAM SDG Hackathon.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag reveal">Contact</div>
+    <h2 class="section-heading reveal reveal-d1">Let's build something.</h2>
+    <p class="section-sub reveal reveal-d2">Full-time roles, research collaborations, or just a conversation — I'm always open.</p>
+
+    <div class="contact-layout">
+      <div class="contact-links reveal">
+        <a href="mailto:hemanthmurali.08@gmail.com" class="contact-link">
+          <div class="contact-link-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div><h4>Email</h4><p>hemanthmurali.08@gmail.com</p></div>
+        </a>
+        <a href="tel:+17349722255" class="contact-link">
+          <div class="contact-link-icon"><i class="fa-solid fa-phone"></i></div>
+          <div><h4>Phone</h4><p>+1 (734) 972-2255</p></div>
+        </a>
+        <a href="https://www.linkedin.com/in/hemanth-murali/" target="_blank" class="contact-link">
+          <div class="contact-link-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+          <div><h4>LinkedIn</h4><p>linkedin.com/in/hemanth-murali</p></div>
+        </a>
+        <a href="https://github.com/HemZBond" target="_blank" class="contact-link">
+          <div class="contact-link-icon"><i class="fa-brands fa-github"></i></div>
+          <div><h4>GitHub</h4><p>github.com/HemZBond</p></div>
+        </a>
+        <a href="https://hemanthmurali.me" target="_blank" class="contact-link">
+          <div class="contact-link-icon"><i class="fa-solid fa-globe"></i></div>
+          <div><h4>Portfolio</h4><p>hemanthmurali.me</p></div>
+        </a>
+      </div>
+      <div class="contact-right-panel reveal reveal-d2">
+        <h3>Find me everywhere</h3>
+        <p>From code to research to writing — connect across the internet.</p>
+        <div class="social-row">
+          <a href="https://github.com/HemZBond" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/hemanth-murali/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+          <a href="https://scholar.google.com/citations?user=rkfPJgcAAAAJ" target="_blank" class="social-btn"><i class="fa-brands fa-google-scholar"></i> Scholar</a>
+          <a href="https://medium.com/@hems_36130" target="_blank" class="social-btn"><i class="fa-brands fa-medium"></i> Medium</a>
+          <a href="https://www.instagram.com/hxmu_/" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        </div>
+        <div class="lang-pills">
+          <span class="lang-pill" style="background:rgba(var(--accent-rgb),.1);color:var(--accent)">English — Fluent</span>
+          <span class="lang-pill" style="background:rgba(52,211,153,.12);color:var(--accent4)">Tamil — Native</span>
+          <span class="lang-pill" style="background:rgba(251,191,36,.12);color:#fbbf24">Hindi — Intermediate</span>
+          <span class="lang-pill" style="background:rgba(var(--accent2-rgb),.12);color:var(--accent2)">German — A2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <p>Designed & crafted by <a href="https://hemanthmurali.me/" target="_blank">Hemanth Murali</a> &copy; 2025</p>
+  <div class="footer-line">// built with caffeine, curiosity, and too many ROS2 launch files</div>
+</footer>
+
+<!-- ===========================
+     JAVASCRIPT — THE ENGINE
+     =========================== -->
+<script>
+(function(){
+  'use strict';
+
+  // ===== CUSTOM CURSOR =====
+  const cursor = document.getElementById('cursor');
+  const dot = document.getElementById('cursorDot');
+  let mx = 0, my = 0, cx = 0, cy = 0, dx = 0, dy = 0;
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  document.addEventListener('mousedown', () => cursor.classList.add('click'));
+  document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+  // smooth follow
+  function animateCursor() {
+    cx += (mx - cx) * 0.12;
+    cy += (my - cy) * 0.12;
+    dx += (mx - dx) * 0.35;
+    dy += (my - dy) * 0.35;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    dot.style.left = dx + 'px';
+    dot.style.top = dy + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // hover targets
+  const hoverEls = document.querySelectorAll('a, button, .project-card, .exp-card, .skill-pill, .contact-link, .hero-tag, .research-card, .edu-card, .pub-card, .news-item');
+  hoverEls.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  // ===== SCROLL PROGRESS =====
+  const progress = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = (window.scrollY / h) * 100;
+    progress.style.width = pct + '%';
+  }, { passive: true });
+
+  // ===== NAV SCROLL STATE =====
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ===== ACTIVE NAV LINK =====
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-center a');
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY + 150;
+    sections.forEach(s => {
+      const top = s.offsetTop - 100;
+      const id = s.getAttribute('id');
+      const link = document.querySelector(`.nav-center a[href="#${id}"]`);
+      if (link) {
+        if (sy >= top && sy < top + s.offsetHeight) link.classList.add('active');
+        else link.classList.remove('active');
+      }
+    });
+  }, { passive: true });
+
+  // ===== THEME TOGGLE =====
+  const themeBtn = document.getElementById('themeToggle');
+  const html = document.documentElement;
+
+  // check saved preference
+  const saved = localStorage.getItem('theme');
+  if (saved) html.setAttribute('data-theme', saved);
+
+  themeBtn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // ===== MOBILE MENU =====
+  const hamburger = document.getElementById('hamburger');
+  const overlay = document.getElementById('mobileOverlay');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  window.closeMob = function() {
+    hamburger.classList.remove('open');
+    overlay.classList.remove('open');
+  };
+
+  // ===== SCROLL REVEAL =====
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  // ===== TERMINAL CURSOR BLINK =====
+  const tc = document.getElementById('terminalCursor');
+  if (tc) setInterval(() => { tc.style.opacity = tc.style.opacity === '0' ? '1' : '0'; }, 530);
+
+  // ===== TILT EFFECT ON CARDS =====
+  const tiltCards = document.querySelectorAll('.project-card, .research-card');
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotX = ((y - cy) / cy) * -4;
+      const rotY = ((x - cx) / cx) * 4;
+      card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ===== TEXT SCRAMBLE — Hero Name =====
+  class TextScramble {
+    constructor(el) {
+      this.el = el;
+      this.chars = '!<>-_\\/[]{}—=+*^?#________';
+      this.update = this.update.bind(this);
+    }
+    setText(newText) {
+      const oldText = this.el.innerText;
+      const length = Math.max(oldText.length, newText.length);
+      const promise = new Promise(resolve => this.resolve = resolve);
+      this.queue = [];
+      for (let i = 0; i < length; i++) {
+        const from = oldText[i] || '';
+        const to = newText[i] || '';
+        const start = Math.floor(Math.random() * 30);
+        const end = start + Math.floor(Math.random() * 30);
+        this.queue.push({ from, to, start, end });
+      }
+      cancelAnimationFrame(this.frameRequest);
+      this.frame = 0;
+      this.update();
+      return promise;
+    }
+    update() {
+      let output = '';
+      let complete = 0;
+      for (let i = 0; i < this.queue.length; i++) {
+        let { from, to, start, end, char } = this.queue[i];
+        if (this.frame >= end) { complete++; output += to; }
+        else if (this.frame >= start) {
+          if (!char || Math.random() < 0.28) {
+            char = this.chars[Math.floor(Math.random() * this.chars.length)];
+            this.queue[i].char = char;
+          }
+          output += `<span style="color:var(--accent);opacity:.6">${char}</span>`;
+        } else { output += from; }
+      }
+      this.el.innerHTML = output;
+      if (complete === this.queue.length) { this.resolve(); }
+      else { this.frameRequest = requestAnimationFrame(this.update); this.frame++; }
+    }
+  }
+
+  // apply scramble to hero name lines after load
+  setTimeout(() => {
+    const lines = document.querySelectorAll('.hero-name .line-inner');
+    if (lines.length >= 2) {
+      const fx1 = new TextScramble(lines[0]);
+      const fx2 = new TextScramble(lines[1]);
+      fx1.setText('Hemanth');
+      setTimeout(() => fx2.setText('Murali'), 400);
+    }
+  }, 900);
+
+  // ===== MAGNETIC HOVER on hero tags =====
+  const magnets = document.querySelectorAll('.hero-tag');
+  magnets.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
