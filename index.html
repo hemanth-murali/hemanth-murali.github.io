@@ -752,7 +752,7 @@ section{padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,3rem)}
 
       <div class="project-card reveal">
         <div class="project-media gridm g4">
-          <div class="gm" data-lightbox="assets/projects/mycobot_teleop.png" data-cap="FETCH tabletop scene with 6-DoF grasp candidates (AnyGrasp)"><img src="assets/projects/fetch_scene.png" alt="FETCH grasp scene" loading="lazy"></div>
+          <div class="gm" data-lightbox="assets/projects/mycobot_teleop.png" data-cap="FETCH tabletop scene with 6-DoF grasp candidates (AnyGrasp)"><img src="assets/projects/mycobot_teleop.png" alt="FETCH grasp scene" loading="lazy"></div>
           <div class="gm" data-lightbox="assets/projects/fetch_vae.png" data-cap="Grasp generative model — point-cloud encoder/decoder"><img src="assets/projects/fetch_vae.png" alt="Grasp VAE architecture" loading="lazy"></div>
           <div class="gm" data-lightbox="assets/projects/fetch_bowl.png" data-cap="Grasp sampling on a transparent / reflective object"><img src="assets/projects/fetch_bowl.png" alt="Grasp on bowl" loading="lazy"></div>
           <div class="gm" data-lightbox="assets/projects/fetch_mug.png" data-cap="Filtered 6-DoF grasps on a mug"><img src="assets/projects/fetch_mug.png" alt="Grasp poses on mug" loading="lazy"></div>
@@ -806,7 +806,7 @@ section{padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,3rem)}
 
       <div class="project-card reveal">
         <div class="project-media gridm g2">
-          <div class="gm" data-lightbox="assets/projects/fetch_scene.png" data-cap="MyCobot280 — ROS keyboard teleoperation in RViz"><img src="assets/projects/mycobot_teleop.png" alt="MyCobot teleop in RViz" loading="lazy"></div>
+          <div class="gm" data-lightbox="assets/projects/fetch_scene.png" data-cap="MyCobot280 — ROS keyboard teleoperation in RViz"><img src="assets/projects/fetch_scene.png" alt="MyCobot teleop in RViz" loading="lazy"></div>
           <div class="gm" data-lightbox="assets/projects/mycobot_moveit.png" data-cap="MoveIt motion planning with collision-aware IK"><img src="assets/projects/mycobot_moveit.png" alt="MoveIt motion planning" loading="lazy"></div>
           <div class="media-zoom"><i class="fa-solid fa-expand"></i></div>
         </div>
@@ -1327,7 +1327,7 @@ section{padding:clamp(4rem,8vw,7rem) clamp(1rem,4vw,3rem)}
       lbCap=document.getElementById('lbCap'),
       lbClose=document.getElementById('lbClose');
   if(!lb) return;
-  function openImg(src,cap){ lbVid.pause(); lbVid.removeAttribute('src'); lbVid.load(); lbVid.style.display='none'; lbImg.style.display=''; lbImg.src=src; lbCap.textContent=cap||''; lb.classList.add('open'); document.body.style.overflow='hidden'; }
+  function openImg(src,cap){ lbVid.pause(); lbVid.removeAttribute('src'); lbVid.load(); lbVid.style.display='block'; lbImg.style.display=''; lbImg.src=src; lbCap.textContent=cap||''; lb.classList.add('open'); document.body.style.overflow='hidden'; }
   function openVid(src,cap){ lbVid.style.display='block'; lbImg.src=''; lbVid.style.display=''; lbVid.src=src; lbVid.currentTime=0; var p=lbVid.play(); if(p&&p.catch)p.catch(function(){}); lbCap.textContent=cap||''; lb.classList.add('open'); document.body.style.overflow='hidden'; }
   function close(){ lb.classList.remove('open'); lbImg.src=''; lbVid.pause(); lbVid.removeAttribute('src'); lbVid.load(); document.body.style.overflow=''; }
   document.querySelectorAll('[data-lightbox]').forEach(function(el){
